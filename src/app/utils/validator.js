@@ -31,6 +31,11 @@ export function validator(data, config) {
                 statusValidate = !minLengthRegExp.test(data);
                 break;
             }
+            case "minNameLength": {
+                const minLengthRegExp = /^.{3,}$/g;
+                statusValidate = !minLengthRegExp.test(data);
+                break;
+            }
             default:
                 break;
         }

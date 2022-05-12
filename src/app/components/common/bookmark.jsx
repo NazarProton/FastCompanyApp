@@ -44,7 +44,7 @@ const BookMark = ({ status, onHandle}) => {
 };
 
 BookMark.propTypes = {
-    status: PropTypes.bool.isRequired,
+    status: PropTypes.bool,
     onHandle: PropTypes.func.isRequired,
     id: PropTypes.string
 };

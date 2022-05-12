@@ -1,36 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import api from "../../../api";
-import QualitiesList from "../../ui/qaulities";
-import { useNavigate , useParams } from "react-router-dom";
+
+import BackHistoryButton from "../../common/backButton";
+import UserCard from "../../ui/userCard";
+import QualitiesCard from "../../ui/qualitiesCard";
+import MeetingCard from "../../ui/meetingsCard";
+import Comments from "../../ui/comments";
+import { useUser } from "../../../hooks/useUsers";
+import { CommentsProvider } from "../../../hooks/useComments";
 
 const UserPage = ({ userId }) => {
-    const navigation = useNavigate();
-    const params = useParams();
-    const [user, setUser] = useState();
-    useEffect(() => {
-        api.users.getById(userId).then((data) => setUser(data));
-    },[]);
+    const { getUserById } = useUser();
+    const user = getUserById(userId);
     if (user) {
         return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-6 offset-md-3 shadow p-4">
-                        <div>
-                            <h1>{user.name}</h1>
-                            <h2>Профессия: {user.profession.name}</h2>
-                            <QualitiesList qualities={user.qualities} />
-                            <h4>completedMetings: {user.completedMeetings}</h4>
-                            <h2>Rate: {user.rate}/5</h2>
-                            <button
-                                className="btn btn-outline-success"
-                                onClick={() =>
-                                    navigation(`/users/${params.userId}/edit`)
-                                }
-                            >
-                                Edit
-                            </button>
-                        </div>
+            <div className="container mt-5">
+                <BackHistoryButton />
+                <div className="row gutters-sm">
+                    <div className="col-md-4 mb-3">
+                        <UserCard user={user} />
+                        <QualitiesCard data={user.qualities} />
+                        <MeetingCard value={user.completedMeetings} />
+                    </div>
+                    <div className="col-md-8">
+                        <CommentsProvider>
+                            <Comments />
+                        </CommentsProvider>
                     </div>
                 </div>
             </div>

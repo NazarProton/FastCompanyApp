@@ -1,16 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Table,{TableBody,TableHeader} from "../common/table";
+import Table, { TableBody, TableHeader } from "../common/table";
 import BookMark from "../common/bookmark";
 import Qualities from "./qaulities";
 import { Link } from "react-router-dom";
+import Profession from "./profession";
 
 const UsersTable = ({
     users,
     onSort,
     selectedSort,
-    onHandle,
-    onDelete
+    onHandle
     // ...rest
 }) => {
     const columns = {
@@ -25,7 +25,10 @@ const UsersTable = ({
             name: "Качества",
             component: (user) => <Qualities qualities={user.qualities} />
         },
-        profession: { path: "profession.name", name: "Професия" },
+        professions: {
+            name: "Профессия",
+            component: (user) => <Profession id={user.profession} />
+        },
         completedMeetings: {
             path: "completedMeetings",
             name: "Встретился(раз)"
@@ -39,16 +42,6 @@ const UsersTable = ({
                     status={user.bookmark}
                     onHandle={() => onHandle(user._id)}
                 />
-            )
-        },
-        delete: {
-            component: (user) => (
-                <button
-                    onClick={() => onDelete(user._id)}
-                    className="btn m-1 btn-outline-danger"
-                >
-                    Удалить
-                </button>
             )
         }
     };
@@ -69,8 +62,7 @@ UsersTable.propTypes = {
     users: PropTypes.array.isRequired,
     onSort: PropTypes.func.isRequired,
     selectedSort: PropTypes.object.isRequired,
-    onHandle: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired
+    onHandle: PropTypes.func.isRequired
 };
 
 export default UsersTable;

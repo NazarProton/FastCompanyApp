@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import reportWebVitals from "./reportWebVitals";
 import App from "./app/App";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import "react-toastify/dist/ReactToastify.css";
 
 ReactDOM.render(
     <React.StrictMode>

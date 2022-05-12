@@ -1,14 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useQualities } from "../../../hooks/useQualities";
 
-const Quality = ({ ...quality }) => (
+const Quality = ({ id }) => {
+    const { getQuality } = useQualities();
+    const quality = getQuality(id);
+    return (
     <span key={quality._id} className={`badge m-1 bg-${quality.color}`}>
         {quality.name}
     </span>
 );
-
+};
 Quality.propTypes = {
-    quality: PropTypes.object
+    id: PropTypes.string.isRequired
 };
 
 export default Quality;
